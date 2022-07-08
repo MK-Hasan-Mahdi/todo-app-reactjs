@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import add from '../Assets/add.png';
+import swal from 'sweetalert';
+
 
 
 const Home = () => {
@@ -21,8 +23,14 @@ const Home = () => {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.log(json));
-
+            .then((data) => {
+                console.log(data);
+                if (data) {
+                    refetch();
+                    e.target.task.value = "";
+                    swal("Successfully Task Added", "", "success");
+                }
+            });
     }
 
     if (isLoading) {
@@ -31,7 +39,22 @@ const Home = () => {
 
     const handleCompleteTask = (id) => {
         if (id) {
-            console.log(`${id}`);
+            // console.log(`${id}`);
+            fetch(`http://localhost:5000/completeTask/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ isComplete: true }),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data) {
+                        refetch();
+                        swal('Task Completed', ' ', "success")
+                    }
+                });
         }
     }
     return (
