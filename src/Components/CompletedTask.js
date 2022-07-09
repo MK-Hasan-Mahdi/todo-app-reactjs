@@ -4,6 +4,7 @@ import del from '../Assets/delete.png'
 
 
 const CompletedTask = ({ completedTask, refetch }) => {
+    // console.log(completedTask);
 
     const handleCompleteTask = (id) => {
         if (id) {
@@ -17,13 +18,51 @@ const CompletedTask = ({ completedTask, refetch }) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     if (data) {
                         refetch();
                         swal('Task Uncompleted', 'Check your todo list ', "success")
                     }
                 });
         }
+    }
+
+    const handleDeleteTask = (deleteTask) => {
+        // console.log('deleted');
+        // const proceedDelete = window.confirm("Are You Sure?");
+        swal({
+            title: "Are you sure?",
+            text: `Delete "${deleteTask.taskName}".`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    if (deleteTask._id) {
+                        fetch(`http://localhost:5000/deleteTask/${deleteTask._id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'content-type': 'application/json'
+                            }
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data) {
+                                    // console.log(data);
+                                    refetch()
+                                    swal("Successfully deleted", {
+                                        icon: "success",
+                                    });
+                                }
+
+                            })
+                    }
+
+                } else {
+                    swal(`"${deleteTask.taskName}" is safe!`);
+                }
+            });
     }
     return (
 
@@ -34,7 +73,7 @@ const CompletedTask = ({ completedTask, refetch }) => {
             </td>
 
             <td>
-                <button className='btn btn-square'><img className='w-8 h-8' src={del} alt="" /></button>
+                <button onClick={() => handleDeleteTask(completedTask)} className='btn btn-square'><img className='w-8 h-8' src={del} alt="" /></button>
             </td>
         </tr>
 

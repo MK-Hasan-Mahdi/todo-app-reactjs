@@ -10,7 +10,7 @@ const Home = () => {
         fetch('http://localhost:5000/tasks')
             .then(res => res.json()));
 
-    const handleTask = (e) => {
+    const handleAddTask = (e) => {
         e.preventDefault();
         // console.log('clicked');
         const taskValue = e.target.task.value;
@@ -62,7 +62,7 @@ const Home = () => {
             <div className='flex items-center mt-12 flex-col'>
                 <h3 className='text-3xl font-extrabold mb-2 font-mono'>Add Task</h3>
                 <div className="form-control w-full md:w-1/2">
-                    <form onSubmit={handleTask} className="input-group ">
+                    <form onSubmit={handleAddTask} className="input-group ">
                         <input type="text" name='task' placeholder="Write task" className="input w-full text-2xl focus:outline-0 input-bordered" />
                         <button type='submit' className="btn btn-square input-bordered bg-white hover:bg-[#F44336] hover:input-bordered">
                             {/* <img src={add} className='w-10 h-10' alt="" /> */}
