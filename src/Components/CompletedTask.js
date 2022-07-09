@@ -1,8 +1,10 @@
 import React from 'react';
 import swal from 'sweetalert';
+import del from '../Assets/delete.png'
 
 
 const CompletedTask = ({ completedTask, refetch }) => {
+
     const handleCompleteTask = (id) => {
         if (id) {
             // console.log(`${id}`);
@@ -24,14 +26,18 @@ const CompletedTask = ({ completedTask, refetch }) => {
         }
     }
     return (
-        <div>
-            <tr>
-                <td>
-                    <input type="checkbox" className="checkbox" onClick={() => handleCompleteTask(completedTask._id)} />
-                    <span className='line-through'> {completedTask.taskName}</span>
-                </td>
-            </tr>
-        </div>
+
+        <tr>
+            <td>
+                <input type="checkbox" onClick={() => handleCompleteTask(completedTask._id)} className="checkbox mr-3" checked style={{ position: "relative", top: "7px" }} />
+                <span className='line-through'> {completedTask.taskName}</span>
+            </td>
+
+            <td>
+                <button className='btn btn-square'><img className='w-8 h-8' src={del} alt="" /></button>
+            </td>
+        </tr>
+
     );
 };
 
