@@ -3,6 +3,7 @@ import './App.css';
 import CompletedTasks from './Components/CompletedTasks';
 import Home from './Components/Home';
 import Navbar from './Components/Shared/Navbar';
+import Tasks from './Components/Tasks/Tasks';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/completedTasks' element={<CompletedTasks></CompletedTasks>}></Route>
-        <Route path='/todo' element={<></>}></Route>
+        <Route path='/todo' element={<Tasks></Tasks>}></Route>
       </Routes>
     </div>
   );
